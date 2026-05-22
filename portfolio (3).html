@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Fresh Graduate</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --ink: #1A1208;
+    --rust: #C4501A;
+    --gold: #D4A847;
+    --sage: #5C7A5C;
+    --muted: #7A6E5F;
+    --paper: #EDE8DC;
+    --border: #C8BFB0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(245, 240, 232, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--rust); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    padding: 6rem 3rem 4rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--rust);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 38ch;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--ink);
+    color: var(--cream);
+    text-decoration: none;
+    padding: 0.9rem 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .hero-cta:hover { background: var(--rust); transform: translateY(-2px); }
+
+  .hero-right {
+    background: var(--paper);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: 'PORTFOLIO';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 10rem;
+    font-weight: 900;
+    color: var(--border);
+    opacity: 0.4;
+    bottom: -2rem;
+    right: -2rem;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stat-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--rust);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--rust);
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    row-gap: 2.5rem;
+    column-gap: 2.5rem;
+  }
+
+  .project-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    margin-bottom: 0;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(26,18,8,0.12);
+  }
+
+  .project-img {
+    width: 100%;
+    height: 200px;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-img.cake {
+    background: #FAF6F0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .bunda-mock {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    background: #FAF6F0;
+    font-family: 'DM Mono', monospace;
+    overflow: hidden;
+  }
+
+  .bunda-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.5rem 0.8rem;
+    background: #FAF6F0;
+    border-bottom: 1px solid #EEE8DF;
+    flex-shrink: 0;
+  }
+
+  .bunda-logo { display: flex; align-items: center; gap: 0.4rem; }
+  .bunda-logo-icon { font-size: 1.2rem; }
+  .bunda-logo-title { font-size: 0.6rem; font-weight: 700; color: #2A1A0E; letter-spacing: 0.12em; line-height: 1; }
+  .bunda-logo-sub { font-size: 0.45rem; color: #9A7A5A; letter-spacing: 0.06em; }
+
+  .bunda-nav-links { display: flex; gap: 0.7rem; }
+  .bunda-navlink { font-size: 0.5rem; color: #9A7A5A; letter-spacing: 0.06em; cursor: pointer; }
+  .bunda-navlink.active { color: #C8885A; border-bottom: 1px solid #C8885A; padding-bottom: 1px; }
+
+  .bunda-hero {
+    background: #FFFDF8;
+    border-bottom: 2px solid #F0E8DC;
+    padding: 0.6rem 0.8rem 0.5rem;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    min-height: 52px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .bunda-doodles { position: absolute; inset: 0; pointer-events: none; }
+  .doodle { position: absolute; font-size: 1.1rem; opacity: 0.55; }
+  .d1 { top: 2px; left: 6px; transform: rotate(-15deg); }
+  .d2 { top: 4px; right: 8px; transform: rotate(10deg); }
+  .d3 { bottom: 2px; left: 16px; transform: rotate(5deg); }
+  .d4 { bottom: 4px; right: 20px; transform: rotate(-8deg); }
+  .d5 { top: 50%; left: 50%; transform: translate(-80px, -50%) rotate(-5deg); opacity: 0.2; font-size: 2rem; }
+
+  .bunda-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #C8885A;
+    text-align: center;
+    position: relative; z-index: 1;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+  }
+
+  .bunda-tagline {
+    font-size: 0.5rem; color: #7A6A5A;
+    text-align: center; padding: 0.4rem 0.8rem;
+    border-top: 1px solid #EFC8A8; border-bottom: 1px solid #EFC8A8;
+    line-height: 1.5; background: white; flex-shrink: 0;
+  }
+
+  .bunda-section-title {
+    font-size: 0.6rem; font-weight: 700; color: #2A1A0E;
+    padding: 0.4rem 0.8rem 0.2rem;
+    border-bottom: 2px solid #4AB8A8;
+    display: inline-block; margin: 0 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .bunda-products {
+    display: flex; gap: 0.4rem;
+    padding: 0.5rem 0.8rem 0.6rem;
+    flex: 1;
+  }
+
+  .bunda-card {
+    flex: 1;
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex; flex-direction: column;
+  }
+
+  .bunda-card-img {
+    height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .bunda-card-name { font-size: 0.5rem; font-weight: 700; color: #2A1A0E; padding: 0.25rem 0.35rem 0; }
+  .bunda-card-price { font-size: 0.48rem; font-weight: 700; color: #2A1A0E; padding: 0 0.35rem 0.25rem; }
+
+  .bunda-card-btns { display: flex; gap: 0.2rem; padding: 0 0.3rem 0.35rem; margin-top: auto; }
+
+  .bunda-btn { flex: 1; border-radius: 20px; font-size: 0.42rem; text-align: center; padding: 0.2rem 0; font-weight: 600; letter-spacing: 0.02em; }
+  .bunda-btn.detail { background: #F5C842; color: #2A1A0E; }
+  .bunda-btn.tambah { background: #E87878; color: white; }
+
+  .project-img.library {
+    background: linear-gradient(135deg, #1A2744 0%, #2E4A7A 50%, #4169A0 100%);
+  }
+
+  .project-img.posyandu {
+    background: #A8D8E0;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .eposyandu-mock {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    position: relative;
+    background: linear-gradient(160deg, #B8E4EC 0%, #7EC8D8 50%, #3A9DB8 100%);
+  }
+
+  .ep-bg {
+    flex: 1.1;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 0.5rem;
+    overflow: hidden;
+  }
+
+  .ep-wave {
+    position: absolute;
+    bottom: 0; left: -10%; right: -10%;
+    height: 45%;
+    background: #1a7a9a;
+    border-radius: 60% 60% 0 0;
+    opacity: 0.55;
+  }
+
+  .ep-illus {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+  }
+
+  .ep-card {
+    flex: 1;
+    margin: 0.7rem 0.7rem 0.7rem 0;
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 0.7rem;
+    gap: 0.45rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+
+  .ep-logo {
+    margin-bottom: 0.2rem;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+  }
+
+  .ep-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 900;
+    color: #0d4f63;
+    line-height: 1;
+  }
+
+  .ep-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: #1a7a9a;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+  }
+
+  .ep-input {
+    width: 100%;
+    background: rgba(255,255,255,0.75);
+    border: 1px solid rgba(255,255,255,0.9);
+    border-radius: 20px;
+    padding: 0.35rem 0.7rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: #aaa;
+    letter-spacing: 0.04em;
+  }
+
+  .ep-btn {
+    width: 100%;
+    background: #1a7a9a;
+    border-radius: 20px;
+    padding: 0.4rem 0.7rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    letter-spacing: 0.08em;
+    margin-top: 0.2rem;
+    box-shadow: 0 3px 10px rgba(26,122,154,0.4);
+  }
+
+  .project-img.catbreed {
+    background: linear-gradient(135deg, #1A0A2E 0%, #2D1B5E 50%, #4A2C8A 100%);
+    padding: 0.7rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .catbreed-mock {
+    width: 100%;
+    height: 100%;
+    background: #0F0A1E;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .catbreed-body {
+    flex: 1;
+    padding: 0.6rem 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    background: linear-gradient(180deg, #0F0A1E 0%, #1A0F3A 100%);
+  }
+
+  .cb-hero-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: #F59E0B;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .cb-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.52rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.04em;
+  }
+
+  .cb-upload-box {
+    background: rgba(245,158,11,0.08);
+    border: 1px dashed rgba(245,158,11,0.35);
+    border-radius: 4px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .cb-upload-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .cb-result-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .cb-result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.7);
+    padding: 0.2rem 0.4rem;
+    background: rgba(255,255,255,0.04);
+    border-left: 2px solid var(--c, #F59E0B);
+    border-radius: 0 2px 2px 0;
+  }
+
+  .cb-result-item span {
+    color: var(--c, #F59E0B);
+    font-weight: 600;
+  }
+
+  .project-live-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: #F59E0B;
+    text-decoration: none;
+    border: 1px solid #F59E0B;
+    padding: 0.35rem 0.8rem;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .project-live-link:hover {
+    background: #F59E0B;
+    color: var(--ink);
+  }
+
+  .project-img-icon {
+    font-size: 4rem;
+    opacity: 0.6;
+  }
+
+  .project-img-label {
+    position: absolute;
+    bottom: 0.8rem;
+    right: 0.8rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    background: rgba(0,0,0,0.3);
+    padding: 0.3rem 0.6rem;
+  }
+
+  /* Decorative screenshot grid inside project card images */
+  .screenshot-mock {
+    width: 85%;
+    height: 75%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    display: grid;
+    grid-template-rows: 28px 1fr;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .mock-bar {
+    background: rgba(255,255,255,0.12);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    padding: 0 0.8rem;
+    gap: 0.4rem;
+  }
+
+  .mock-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+  }
+
+  .mock-body {
+    padding: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .mock-line {
+    height: 6px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 3px;
+  }
+
+  .mock-line.short { width: 60%; }
+  .mock-line.medium { width: 80%; }
+  .mock-line.long { width: 95%; }
+
+  .mock-row {
+    display: flex;
+    gap: 0.4rem;
+    flex: 1;
+  }
+
+  .mock-block {
+    flex: 1;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+  }
+
+  .project-body {
+    padding: 1.8rem;
+  }
+
+  .project-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.6rem;
+  }
+
+  .project-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: var(--ink);
+  }
+
+  .project-goal {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    font-style: italic;
+  }
+
+  .project-features {
+    margin-bottom: 1.2rem;
+  }
+
+  .project-features h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .feature-list li {
+    font-size: 0.88rem;
+    color: var(--ink);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .feature-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--rust);
+    font-size: 0.8rem;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.25rem 0.7rem;
+  }
+
+  /* INTERNSHIP */
+  .internship-card {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .internship-sidebar {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .internship-org {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .internship-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .internship-icon {
+    font-size: 2.5rem;
+    margin-top: auto;
+    opacity: 0.4;
+  }
+
+  .internship-body {
+    background: var(--paper);
+    padding: 2.5rem;
+  }
+
+  .internship-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1rem;
+  }
+
+  .internship-tasks {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+
+  .internship-tasks li {
+    font-size: 0.9rem;
+    color: var(--ink);
+    padding: 0.8rem 1rem;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+  }
+
+  /* SKILLS / EXCEL */
+  .skills-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .skill-category {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    padding: 2rem;
+  }
+
+  .skill-category h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .skill-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .skill-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+  }
+
+  .skill-level {
+    color: var(--muted) !important;
+  }
+
+  .skill-bar {
+    height: 4px;
+    background: var(--border);
+    position: relative;
+  }
+
+  .skill-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: var(--rust);
+    transition: width 1s ease;
+  }
+
+  /* Excel mock dashboard */
+  .excel-mock {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .excel-header {
+    background: #1E7145;
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .excel-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: white;
+    letter-spacing: 0.08em;
+  }
+
+  .excel-body {
+    padding: 1.2rem;
+  }
+
+  .excel-tabs {
+    display: flex;
+    gap: 0.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .excel-tab {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    padding: 0.3rem 0.8rem;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-bottom: none;
+    cursor: pointer;
+    color: var(--muted);
+  }
+
+  .excel-tab.active {
+    background: #1E7145;
+    color: white;
+    border-color: #1E7145;
+  }
+
+  .excel-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+  }
+
+  .excel-table th {
+    background: #C6EFCE;
+    color: #375623;
+    padding: 0.4rem 0.6rem;
+    text-align: left;
+    border: 1px solid #A9D18E;
+    font-weight: 500;
+  }
+
+  .excel-table td {
+    padding: 0.35rem 0.6rem;
+    border: 1px solid var(--border);
+    color: var(--ink);
+  }
+
+  .excel-table tr:nth-child(even) td { background: rgba(255,255,255,0.5); }
+
+  .excel-chart {
+    margin-top: 1rem;
+    height: 80px;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.4rem;
+    padding: 0 0.5rem;
+  }
+
+  .chart-bar-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .chart-bar {
+    width: 100%;
+    background: #1E7145;
+    opacity: 0.7;
+    border-radius: 2px 2px 0 0;
+    min-height: 4px;
+    transition: opacity 0.2s;
+  }
+
+  .chart-bar:hover { opacity: 1; }
+
+  .chart-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* CERTIFICATES */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .cert-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+
+  .cert-card:hover { transform: translateY(-3px); }
+
+  .cert-card::before {
+    content: '★';
+    position: absolute;
+    top: -1rem;
+    right: 1rem;
+    font-size: 6rem;
+    color: var(--gold);
+    opacity: 0.07;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .cert-issuer {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.6rem;
+  }
+
+  .cert-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+
+  .cert-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .cert-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    border: 1px solid var(--sage);
+    padding: 0.25rem 0.6rem;
+  }
+
+  /* CONTACT / FOOTER */
+  footer {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 5rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 4rem;
+  }
+
+  .footer-left h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-left h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .footer-left p {
+    font-size: 1rem;
+    color: rgba(245,240,232,0.6);
+    max-width: 36ch;
+  }
+
+  .contact-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .contact-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid rgba(245,240,232,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    margin-bottom: 0.1rem;
+  }
+
+  .contact-value {
+    font-size: 0.95rem;
+    color: var(--cream);
+  }
+
+  /* LOOKER STUDIO MOCK */
+  .project-img.looker {
+    background: linear-gradient(135deg, #1A1F3A 0%, #1F3460 50%, #1A5276 100%);
+    padding: 0.8rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .looker-mock {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  }
+
+  .looker-topbar {
+    background: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.4rem 0.7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .looker-logo-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  .looker-topbar-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    color: #5f6368;
+    letter-spacing: 0.04em;
+  }
+
+  .looker-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.52rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 2px;
+    color: #5f6368;
+    background: #e8eaed;
+  }
+
+  .looker-btn.active {
+    background: #4285F4;
+    color: white;
+  }
+
+  .looker-body {
+    flex: 1;
+    padding: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: #f4f6fc;
+  }
+
+  .looker-scorecards {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .looker-scorecard {
+    flex: 1;
+    background: white;
+    border-radius: 3px;
+    padding: 0.4rem 0.5rem;
+    border: 1px solid #e8eaed;
+  }
+
+  .ls-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .ls-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.48rem;
+    color: #80868b;
+    margin-top: 0.15rem;
+  }
+
+  .ls-trend {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    margin-top: 0.15rem;
+  }
+
+  .ls-trend.up { color: #34A853; }
+  .ls-trend.down { color: #EA4335; }
+
+  .looker-charts {
+    display: flex;
+    gap: 0.4rem;
+    flex: 1;
+  }
+
+  .looker-chart-box {
+    flex: 1;
+    background: white;
+    border-radius: 3px;
+    border: 1px solid #e8eaed;
+    padding: 0.4rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ls-chart-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    color: #80868b;
+    margin-bottom: 0.3rem;
+  }
+
+  .ls-bar-chart {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.2rem;
+    padding-top: 0.2rem;
+  }
+
+  .ls-bar {
+    flex: 1;
+    border-radius: 1px 1px 0 0;
+    min-height: 3px;
+    opacity: 0.85;
+  }
+
+  .ls-donut {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .ls-donut-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .ls-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    color: #5f6368;
+  }
+
+  .ls-legend-item span {
+    display: block;
+    width: 8px; height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* TOKO DANI DASHBOARD MOCK */
+  .looker-body.toko-dani {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.4rem;
+    background: #f4f6fc;
+    overflow: hidden;
+  }
+
+  .td-header {
+    background: #2B5C8A;
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-align: center;
+    padding: 0.3rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  .td-row1 { display: flex; gap: 0.35rem; align-items: flex-start; }
+
+  .td-scorecards { display: flex; flex-direction: column; gap: 0.25rem; flex-shrink: 0; }
+
+  .td-scorecard { padding: 0.3rem 0.5rem; border-radius: 2px; min-width: 68px; }
+  .td-scorecard.blue { background: #2B7BE8; color: white; }
+  .td-scorecard.orange { background: #E8622B; color: white; }
+
+  .td-sc-label { font-family: 'DM Mono', monospace; font-size: 0.45rem; opacity: 0.85; margin-bottom: 0.1rem; }
+  .td-sc-val { font-family: 'DM Mono', monospace; font-size: 0.75rem; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+
+  .td-table-mini {
+    flex: 1; background: white; border: 1px solid #e0e0e0; border-radius: 2px;
+    overflow: hidden; font-family: 'DM Mono', monospace; font-size: 0.45rem;
+  }
+
+  .td-table-head { background: #e8eaed; display: flex; justify-content: space-between; padding: 0.2rem 0.35rem; color: #444; font-weight: 600; }
+  .td-table-row { display: flex; justify-content: space-between; padding: 0.18rem 0.35rem; color: #555; border-bottom: 1px solid #f5f5f5; }
+  .td-table-row.alt { background: #f9f9ff; }
+
+  .td-filters { display: flex; flex-direction: column; gap: 0.2rem; flex-shrink: 0; }
+  .td-filter-box { background: white; border: 1px solid #ccc; border-radius: 2px; font-family: 'DM Mono', monospace; font-size: 0.45rem; color: #555; padding: 0.18rem 0.4rem; white-space: nowrap; }
+
+  .td-row2 { display: flex; gap: 0.35rem; flex: 1; }
+
+  .td-chart-box { flex: 1; background: white; border: 1px solid #e0e0e0; border-radius: 2px; padding: 0.35rem 0.4rem; display: flex; flex-direction: column; overflow: hidden; }
+  .td-chart-title { font-family: 'DM Mono', monospace; font-size: 0.48rem; color: #444; font-weight: 600; margin-bottom: 0.3rem; line-height: 1.3; }
+
+  .td-pie-area { display: flex; align-items: center; gap: 0.4rem; flex: 1; }
+  .td-pie-legend { display: flex; flex-direction: column; gap: 0.18rem; }
+  .td-leg { display: flex; align-items: center; gap: 0.25rem; font-family: 'DM Mono', monospace; font-size: 0.44rem; color: #555; }
+  .td-leg span { display: block; width: 7px; height: 7px; border-radius: 1px; flex-shrink: 0; }
+
+  .td-line-area { flex: 1; display: flex; align-items: flex-end; }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left > * {
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.55s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+
+    .hero {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-right { display: none; }
+    .hero-left { padding: 5rem 1.5rem 3rem; }
+
+    section { padding: 4rem 1.5rem; }
+
+    .projects-grid { grid-template-columns: 1fr; }
+
+    .internship-card { grid-template-columns: 1fr; }
+    .internship-sidebar { padding: 1.5rem; }
+    .internship-tasks { grid-template-columns: 1fr; }
+
+    .skills-layout { grid-template-columns: 1fr; }
+
+    footer { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Portfolio.</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#internship">Magang</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certificates">Sertifikat</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0; max-width:none;">
+  <div class="hero-left">
+    <div class="hero-tag">Fresh Graduate · Sistem Informasi</div>
+    <h1>Membangun Solusi <em>Digital</em> yang Bermakna</h1>
+    <p class="hero-desc">Lulusan Sistem Informasi dengan pengalaman dalam pengembangan web, desain UI/UX, dan analisis data. Siap berkontribusi di dunia kerja nyata.</p>
+    <a href="#projects" class="hero-cta">Lihat Portfolio →</a>
+  </div>
+  <div class="hero-right">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Project Utama</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">1</div>
+        <div class="stat-label">Pengalaman Magang</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Tech Stack</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Sertifikat</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">01 —</span>
+    <h2 class="section-title">Project Kuliah & Skripsi</h2>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- Project 1 -->
+    <div class="project-card">
+      <div class="project-img cake" style="padding:0; overflow:hidden; background:#FAF6F0;">
+        <div class="bunda-mock">
+          <!-- Navbar -->
+          <div class="bunda-nav">
+            <div class="bunda-logo">
+              <div class="bunda-logo-icon">🎂</div>
+              <div>
+                <div class="bunda-logo-title">BUNDA</div>
+                <div class="bunda-logo-sub">Cake &amp; Bakery</div>
+              </div>
+            </div>
+            <div class="bunda-nav-links">
+              <span class="bunda-navlink active">Home</span>
+              <span class="bunda-navlink">Produk</span>
+              <span class="bunda-navlink">Info</span>
+              <span class="bunda-navlink">Order</span>
+            </div>
+          </div>
+          <!-- Hero banner -->
+          <div class="bunda-hero">
+            <!-- decorative food doodles -->
+            <div class="bunda-doodles">
+              <span class="doodle d1">🍩</span>
+              <span class="doodle d2">🥐</span>
+              <span class="doodle d3">🍞</span>
+              <span class="doodle d4">🧁</span>
+              <span class="doodle d5">🍰</span>
+            </div>
+            <div class="bunda-hero-title">Bunda Cake &amp; Bakery</div>
+          </div>
+          <!-- Tagline -->
+          <div class="bunda-tagline">
+            Temukan kelezatan dalam setiap potongan Red Velvet dari kemewahan rasa dan kelembutan tekstur.
+          </div>
+          <!-- Products section -->
+          <div class="bunda-section-title">Produk Kami</div>
+          <div class="bunda-products">
+            <div class="bunda-card">
+              <div class="bunda-card-img" style="background:linear-gradient(135deg,#D4A96A,#C8885A)">🍰</div>
+              <div class="bunda-card-name">Bolu</div>
+              <div class="bunda-card-price">RP.35.000</div>
+              <div class="bunda-card-btns">
+                <div class="bunda-btn detail">Detail</div>
+                <div class="bunda-btn tambah">🛒 Tambah</div>
+              </div>
+            </div>
+            <div class="bunda-card">
+              <div class="bunda-card-img" style="background:linear-gradient(135deg,#E8C84A,#C8A020)">🎂</div>
+              <div class="bunda-card-name">Kue Lapis</div>
+              <div class="bunda-card-price">RP.35.000</div>
+              <div class="bunda-card-btns">
+                <div class="bunda-btn detail">Detail</div>
+                <div class="bunda-btn tambah">🛒 Tambah</div>
+              </div>
+            </div>
+            <div class="bunda-card">
+              <div class="bunda-card-img" style="background:linear-gradient(135deg,#E8B86D,#D4944A)">🥐</div>
+              <div class="bunda-card-name">RISOL</div>
+              <div class="bunda-card-price">RP.30.000</div>
+              <div class="bunda-card-btns">
+                <div class="bunda-btn detail">Detail</div>
+                <div class="bunda-btn tambah">🛒 Tambah</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="project-img-label" style="z-index:2">Website · PHP</span>
+      </div>
+      <div class="project-body">
+        <div class="project-type">Sistem Informasi · Web</div>
+        <div class="project-name">Website Bunda Cake & Bakery</div>
+        <div class="project-goal">Memudahkan pelanggan memesan produk kue & bakery secara online — dilengkapi katalog produk dinamis, sistem order, dan dashboard admin terintegrasi.</div>
+        <div class="project-features">
+          <h4>Fitur Utama</h4>
+          <ul class="feature-list">
+            <li>Katalog produk: Bolu, Kue Lapis, Risol, Roti Keju, dll</li>
+            <li>Sistem pemesanan online + tambah ke keranjang</li>
+            <li>Dashboard admin penjualan & laporan</li>
+            <li>Manajemen stok & data produk</li>
+            <li>Info toko & kontak (WhatsApp, alamat)</li>
+          </ul>
+        </div>
+        <div class="tech-tags">
+          <span class="tech-tag">PHP</span>
+          <span class="tech-tag">MySQL</span>
+          <span class="tech-tag">Bootstrap</span>
+          <span class="tech-tag">XAMPP</span>
+        </div>
+        <a href="https://www.figma.com/design/apy78qpBlU3rMhkOjPzdpq/UI-Bunda-Cake---Bakery?node-id=1-13" target="_blank" class="project-live-link" style="color:#C8885A;border-color:#C8885A;">🎨 Lihat Desain Figma →</a>
+      </div>
+    </div>
+
+    <!-- Project 2: CatBreed ML -->
+    <div class="project-card">
+      <div class="project-img catbreed">
+        <div class="catbreed-mock">
+          <div class="mock-bar" style="background:rgba(255,255,255,0.1); border-bottom:1px solid rgba(255,255,255,0.1);">
+            <div class="mock-dot" style="background:rgba(255,255,255,0.4)"></div>
+            <div class="mock-dot" style="background:rgba(255,255,255,0.4)"></div>
+            <div class="mock-dot" style="background:rgba(255,255,255,0.4)"></div>
+            <span style="font-family:'DM Mono',monospace;font-size:0.55rem;color:rgba(255,255,255,0.5);margin-left:0.4rem;">msyaroninur.github.io</span>
+          </div>
+          <div class="catbreed-body">
+            <div class="cb-hero-text">🐱 <strong>CatBreed</strong></div>
+            <div class="cb-sub">Kenali Ras Kucingmu Sekali Klik!</div>
+            <div class="cb-upload-box">
+              <span style="font-size:1.4rem">📸</span>
+              <span class="cb-upload-label">Unggah Foto Kucing</span>
+            </div>
+            <div class="cb-result-row">
+              <div class="cb-result-item" style="--c:#F59E0B">Persian <span>92%</span></div>
+              <div class="cb-result-item" style="--c:#10B981">Maine Coon <span>6%</span></div>
+              <div class="cb-result-item" style="--c:#6B7280">Ragdoll <span>2%</span></div>
+            </div>
+          </div>
+        </div>
+        <span class="project-img-label">Machine Learning · Live</span>
+      </div>
+      <div class="project-body">
+        <div class="project-type" style="color:#F59E0B">Machine Learning · Web App</div>
+        <div class="project-name">CatBreed — Deteksi Ras Kucing dengan AI</div>
+        <div class="project-goal">Aplikasi web berbasis machine learning yang mampu mengidentifikasi ras kucing dari foto yang diunggah pengguna secara real-time menggunakan model Teachable Machine Google.</div>
+        <div class="project-features">
+          <h4>Fitur Utama</h4>
+          <ul class="feature-list">
+            <li>Deteksi 12 ras kucing dari foto (upload & kamera)</li>
+            <li>Hasil prediksi real-time dengan confidence score (%)</li>
+            <li>Katalog ras lengkap: Abyssinian, Bengal, Persian, dll</li>
+            <li>Penjelasan karakteristik tiap ras secara detail</li>
+            <li>UI responsif — bisa diakses dari HP & desktop</li>
+          </ul>
+        </div>
+        <div class="tech-tags">
+          <span class="tech-tag" style="background:#F59E0B;color:#1A1208">Teachable Machine</span>
+          <span class="tech-tag" style="background:#3B82F6">TensorFlow.js</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">HTML/CSS</span>
+        </div>
+        <a href="https://msyaroninur.github.io/" target="_blank" class="project-live-link">🔗 Lihat Live Demo →</a>
+      </div>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="project-card">
+      <div class="project-img posyandu" style="padding:0;overflow:hidden;">
+        <div class="eposyandu-mock">
+          <!-- Background wave + left illustration area -->
+          <div class="ep-bg">
+            <div class="ep-wave"></div>
+            <!-- Illustration: simplified doctor + family -->
+            <div class="ep-illus">
+              <svg viewBox="0 0 110 120" xmlns="http://www.w3.org/2000/svg" width="110" height="120">
+                <!-- Clipboard -->
+                <rect x="10" y="18" width="52" height="70" rx="4" fill="#F08080" opacity="0.9"/>
+                <rect x="14" y="10" width="44" height="10" rx="3" fill="#c0392b"/>
+                <circle cx="36" cy="10" r="5" fill="#555"/>
+                <!-- Cross on clipboard -->
+                <rect x="28" y="26" width="16" height="5" rx="2" fill="white" opacity="0.8"/>
+                <rect x="34" y="20" width="5" height="16" rx="2" fill="white" opacity="0.8"/>
+                <!-- Check marks -->
+                <text x="16" y="54" font-size="9" fill="white" opacity="0.8">✓</text>
+                <text x="16" y="66" font-size="9" fill="white" opacity="0.8">✓</text>
+                <text x="16" y="78" font-size="9" fill="white" opacity="0.8">✓</text>
+                <!-- Doctor body -->
+                <circle cx="22" cy="46" r="7" fill="#3d2c2c"/>
+                <rect x="14" y="53" width="16" height="28" rx="4" fill="white"/>
+                <!-- Family: pregnant woman -->
+                <circle cx="52" cy="44" r="7" fill="#9B7B9E"/>
+                <ellipse cx="52" cy="60" rx="10" ry="18" fill="#9B7B9E" opacity="0.8"/>
+                <!-- Father -->
+                <circle cx="68" cy="43" r="7" fill="#d35400"/>
+                <rect x="61" y="50" width="15" height="26" rx="3" fill="#d35400" opacity="0.8"/>
+                <!-- Child sitting -->
+                <circle cx="44" cy="92" r="6" fill="#5B8FCC"/>
+                <rect x="38" y="97" width="12" height="12" rx="3" fill="#5B8FCC" opacity="0.8"/>
+              </svg>
+            </div>
+          </div>
+          <!-- Right: Glassmorphism login card -->
+          <div class="ep-card">
+            <!-- Logo -->
+            <div class="ep-logo">
+              <svg viewBox="0 0 48 48" width="38" height="38" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="24,2 44,18 44,46 4,46 4,18" fill="#1a7a9a" opacity="0.9"/>
+                <polygon points="24,2 44,18 4,18" fill="#125f78"/>
+                <!-- family figures -->
+                <circle cx="18" cy="28" r="5" fill="white" opacity="0.9"/>
+                <circle cx="30" cy="26" r="5.5" fill="white" opacity="0.9"/>
+                <circle cx="24" cy="36" r="4" fill="white" opacity="0.75"/>
+                <path d="M12 42 Q18 34 24 38 Q30 34 36 42" fill="#1a98c0" opacity="0.5"/>
+              </svg>
+            </div>
+            <div class="ep-title">Website</div>
+            <div class="ep-sub">E-Posyandu</div>
+            <div class="ep-input">Username</div>
+            <div class="ep-input">Password</div>
+            <div class="ep-btn">Login</div>
+          </div>
+        </div>
+        <span class="project-img-label" style="z-index:2">Figma · UI/UX</span>
+      </div>
+      <div class="project-body">
+        <div class="project-type">UI/UX Design · Web App</div>
+        <div class="project-name">UI/UX e-Posyandu</div>
+        <div class="project-goal">Merancang antarmuka Website e-Posyandu yang modern dan intuitif dengan visual glassmorphism — memudahkan kader dan orang tua memantau tumbuh kembang balita secara digital.</div>
+        <div class="project-features">
+          <h4>Fitur Utama</h4>
+          <ul class="feature-list">
+            <li>Halaman login dengan desain glassmorphism & ilustrasi medis</li>
+            <li>Pendaftaran & data balita dengan kartu KMS digital</li>
+            <li>Jadwal & riwayat imunisasi interaktif</li>
+            <li>Monitoring pertumbuhan berat & tinggi badan</li>
+            <li>Dashboard kader Posyandu dengan rekap data warga</li>
+          </ul>
+        </div>
+        <div class="tech-tags">
+          <span class="tech-tag">Figma</span>
+          <span class="tech-tag">Prototyping</span>
+          <span class="tech-tag">Glassmorphism</span>
+          <span class="tech-tag">User Research</span>
+        </div>
+        <a href="https://www.figma.com/design/A9Wf8uv1l2tUGbwkbsiTmS/E-Posyandu?node-id=0-1" target="_blank" class="project-live-link" style="color:#1a7a9a;border-color:#1a7a9a;">🎨 Lihat Desain Figma →</a>
+      </div>
+    </div>
+
+    <!-- Project 4: Looker Studio -->
+    <div class="project-card looker-card">
+      <div class="project-img looker">
+        <div class="looker-mock">
+          <!-- Topbar -->
+          <div class="looker-topbar">
+            <div style="display:flex;align-items:center;gap:0.4rem;">
+              <div class="looker-logo-dot" style="background:#4285F4"></div>
+              <div class="looker-logo-dot" style="background:#EA4335"></div>
+              <div class="looker-logo-dot" style="background:#FBBC04"></div>
+              <div class="looker-logo-dot" style="background:#34A853"></div>
+              <span class="looker-topbar-title">Looker Studio</span>
+            </div>
+            <div style="display:flex;gap:0.3rem;">
+              <div class="looker-btn">Share</div>
+              <div class="looker-btn active">View</div>
+            </div>
+          </div>
+          <!-- Dashboard body -->
+          <div class="looker-body toko-dani">
+            <!-- Header strip -->
+            <div class="td-header">Laporan Penjualan Toko Dani</div>
+            <!-- Row 1: scorecards + table + filters -->
+            <div class="td-row1">
+              <div class="td-scorecards">
+                <div class="td-scorecard blue">
+                  <div class="td-sc-label">Penjualan</div>
+                  <div class="td-sc-val">530.107.500</div>
+                </div>
+                <div class="td-scorecard orange">
+                  <div class="td-sc-label">Tingkat Kepuasan</div>
+                  <div class="td-sc-val">7,8</div>
+                </div>
+              </div>
+              <div class="td-table-mini">
+                <div class="td-table-head">
+                  <span>Sales</span><span>Customer</span><span>Rec.</span>
+                </div>
+                <div class="td-table-row"><span>Andika</span><span>CV. Maju Mapan</span><span>6</span></div>
+                <div class="td-table-row alt"><span>Susanti</span><span>PT. Aneka Pangan</span><span>5</span></div>
+                <div class="td-table-row"><span>Niki Saputra</span><span>CV. Maju Mapan</span><span>4</span></div>
+                <div class="td-table-row alt"><span>Ryan Satriyo</span><span>CV. Sumber Pangan</span><span>3</span></div>
+              </div>
+              <div class="td-filters">
+                <div class="td-filter-box">Kota ▾</div>
+                <div class="td-filter-box">Periode ▾</div>
+                <div class="td-filter-box">Kategori ▾</div>
+                <div class="td-filter-box">Sales ▾</div>
+              </div>
+            </div>
+            <!-- Row 2: pie + line chart -->
+            <div class="td-row2">
+              <div class="td-chart-box">
+                <div class="td-chart-title">Nama Produk Yang Paling Laris</div>
+                <div class="td-pie-area">
+                  <svg viewBox="0 0 80 80" width="62" height="62" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="40" cy="40" r="30" fill="none" stroke="#E57373" stroke-width="20" stroke-dasharray="71 117" stroke-dashoffset="0"/>
+                    <circle cx="40" cy="40" r="30" fill="none" stroke="#64B5F6" stroke-width="20" stroke-dasharray="19 169" stroke-dashoffset="-71"/>
+                    <circle cx="40" cy="40" r="30" fill="none" stroke="#81C784" stroke-width="20" stroke-dasharray="19 169" stroke-dashoffset="-90"/>
+                    <circle cx="40" cy="40" r="30" fill="none" stroke="#FFD54F" stroke-width="20" stroke-dasharray="11 177" stroke-dashoffset="-109"/>
+                    <circle cx="40" cy="40" r="30" fill="none" stroke="#90A4AE" stroke-width="20" stroke-dasharray="11 177" stroke-dashoffset="-120"/>
+                    <circle cx="40" cy="40" r="30" fill="none" stroke="#F48FB1" stroke-width="20" stroke-dasharray="57 131" stroke-dashoffset="-131"/>
+                  </svg>
+                  <div class="td-pie-legend">
+                    <div class="td-leg"><span style="background:#64B5F6"></span>Cokelat</div>
+                    <div class="td-leg"><span style="background:#81C784"></span>Biskuit</div>
+                    <div class="td-leg"><span style="background:#FFD54F"></span>Pir kering</div>
+                    <div class="td-leg"><span style="background:#E57373"></span>Lainnya</div>
+                  </div>
+                </div>
+              </div>
+              <div class="td-chart-box">
+                <div class="td-chart-title">Kategori Produk Paling Laris</div>
+                <div class="td-line-area">
+                  <svg viewBox="0 0 120 55" width="100%" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+                    <polyline points="5,8 25,12 45,30 65,40 85,48 105,50" fill="none" stroke="#E57373" stroke-width="1.5" stroke-linejoin="round"/>
+                    <line x1="5" y1="0" x2="5" y2="55" stroke="#e0e0e0" stroke-width="0.5"/>
+                    <line x1="0" y1="55" x2="120" y2="55" stroke="#e0e0e0" stroke-width="0.5"/>
+                    <text x="5" y="53" font-size="5" fill="#9e9e9e" font-family="monospace">Roti</text>
+                    <text x="40" y="53" font-size="5" fill="#9e9e9e" font-family="monospace">Minuman</text>
+                    <text x="80" y="53" font-size="5" fill="#9e9e9e" font-family="monospace">Minyak</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <!-- Row 3: donut + spike chart -->
+            <div class="td-row2">
+              <div class="td-chart-box">
+                <div class="td-chart-title">Metode Pembayaran</div>
+                <div class="td-pie-area">
+                  <svg viewBox="0 0 80 80" width="54" height="54" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="40" cy="40" r="28" fill="none" stroke="#4DB6AC" stroke-width="14" stroke-dasharray="83 93" stroke-dashoffset="0"/>
+                    <circle cx="40" cy="40" r="28" fill="none" stroke="#E57373" stroke-width="14" stroke-dasharray="79 97" stroke-dashoffset="-83"/>
+                    <circle cx="40" cy="40" r="28" fill="none" stroke="#64B5F6" stroke-width="14" stroke-dasharray="14 162" stroke-dashoffset="-162"/>
+                    <circle cx="40" cy="40" r="28" fill="white" stroke="none" r2="18"/>
+                  </svg>
+                  <div class="td-pie-legend">
+                    <div class="td-leg"><span style="background:#4DB6AC"></span>Tunai 42%</div>
+                    <div class="td-leg"><span style="background:#E57373"></span>Kartu 44%</div>
+                    <div class="td-leg"><span style="background:#64B5F6"></span>Transfer 14%</div>
+                  </div>
+                </div>
+              </div>
+              <div class="td-chart-box">
+                <div class="td-chart-title">Tanggal Penjualan Tertinggi</div>
+                <div class="td-line-area">
+                  <svg viewBox="0 0 120 55" width="100%" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+                    <line x1="0" y1="55" x2="120" y2="55" stroke="#e0e0e0" stroke-width="0.5"/>
+                    <polyline points="5,50 12,48 18,47 22,45 26,43 32,35 38,28 44,42 52,10 58,44 66,46 72,38 78,46 88,20 96,48 106,44 114,48" fill="none" stroke="#4285F4" stroke-width="1.2" stroke-linejoin="round"/>
+                    <text x="2" y="53" font-size="4.5" fill="#9e9e9e" font-family="monospace">Jan</text>
+                    <text x="38" y="53" font-size="4.5" fill="#9e9e9e" font-family="monospace">Mar</text>
+                    <text x="78" y="53" font-size="4.5" fill="#9e9e9e" font-family="monospace">Mei</text>
+                    <text x="106" y="53" font-size="4.5" fill="#9e9e9e" font-family="monospace">Jun</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="project-img-label">Looker Studio · Toko Dani</span>
+      </div>
+      <div class="project-body">
+        <div class="project-type" style="color:#4285F4">Visualisasi Data · Looker Studio</div>
+        <div class="project-name">Dashboard Laporan Penjualan Toko Dani</div>
+        <div class="project-goal">Memvisualisasikan data penjualan Toko Dani secara komprehensif — mencakup analisis produk terlaris, metode pembayaran, distribusi per kota, hingga peta sebaran penjualan di Indonesia.</div>
+        <div class="project-features">
+          <h4>Fitur Utama</h4>
+          <ul class="feature-list">
+            <li>Scorecard KPI: Total Penjualan Rp 530jt & Tingkat Kepuasan 7,8</li>
+            <li>Tabel top Sales & Customer dengan Record Count (21 data)</li>
+            <li>Pie chart produk terlaris: Cokelat, Biskuit, Pir Kering, dll</li>
+            <li>Donut chart metode pembayaran (Tunai 42%, Kartu 44%, Transfer 14%)</li>
+            <li>Line chart tren penjualan harian & kategori per kota</li>
+            <li>Horizontal bar chart kategori tertinggi di 9 kota (Jakarta–Bali)</li>
+            <li>Geo Map distribusi penjualan seluruh Indonesia</li>
+            <li>Filter dinamis: Kota, Periode, Kategori, Sales</li>
+          </ul>
+        </div>
+        <div class="tech-tags">
+          <span class="tech-tag" style="background:#4285F4">Looker Studio</span>
+          <span class="tech-tag" style="background:#34A853">Google Sheets</span>
+          <span class="tech-tag" style="background:#EA4335">Data Viz</span>
+          <span class="tech-tag">Geo Map</span>
+        </div>
+        <a href="https://datastudio.google.com/reporting/79598ab0-6e0d-4180-b0c7-ae1bd1f66047" target="_blank" class="project-live-link">🔗 Lihat Dashboard →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- INTERNSHIP -->
+<section id="internship">
+  <div class="section-header">
+    <span class="section-num">02 —</span>
+    <h2 class="section-title">Pengalaman Magang</h2>
+  </div>
+
+  <div class="internship-card">
+    <div class="internship-sidebar">
+      <div>
+        <div class="internship-org">Kementerian Pertanian RI</div>
+        <div class="internship-period">2023 · Jakarta</div>
+      </div>
+      <div class="internship-icon">🌾</div>
+    </div>
+    <div class="internship-body">
+      <div class="internship-title">Staff Administrasi & Data Kepegawaian</div>
+      <ul class="internship-tasks">
+        <li>📊 Pengolahan & rekap data kepegawaian menggunakan Excel dan sistem internal</li>
+        <li>📁 Manajemen administrasi dokumen dan surat-menyurat dinas</li>
+        <li>✅ Validasi & verifikasi data pegawai untuk keperluan pelaporan</li>
+        <li>💻 Input & pembaruan data pada Sistem Informasi Pegawai (SIMPEG)</li>
+        <li>📋 Menyusun laporan bulanan & rekapitulasi kehadiran</li>
+        <li>🤝 Koordinasi antar divisi untuk kebutuhan administrasi harian</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">03 —</span>
+    <h2 class="section-title">Skills & Data Tools</h2>
+  </div>
+
+  <div class="skills-layout">
+    <div>
+      <div class="skill-category" style="margin-bottom:1.5rem">
+        <h3>💻 Programming & Dev</h3>
+        <div class="skill-items">
+          <div class="skill-item">
+            <div class="skill-label"><span>PHP</span><span class="skill-level">Mahir</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>MySQL</span><span class="skill-level">Mahir</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>ASP.NET / C#</span><span class="skill-level">Menengah</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>HTML / CSS</span><span class="skill-level">Mahir</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>Unity / C#</span><span class="skill-level">Dasar</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:45%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <h3>🎨 Design & Tools</h3>
+        <div class="skill-items">
+          <div class="skill-item">
+            <div class="skill-label"><span>Figma</span><span class="skill-level">Menengah</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>UI/UX Prototyping</span><span class="skill-level">Menengah</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:62%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>Microsoft Office</span><span class="skill-level">Mahir</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Excel Dashboard Mock -->
+    <div>
+      <div class="excel-mock">
+        <div class="excel-header">
+          <span style="font-size:1rem">📗</span>
+          <span class="excel-title">Dashboard Kepegawaian — Kementerian Pertanian.xlsx</span>
+        </div>
+        <div class="excel-body">
+          <div class="excel-tabs">
+            <div class="excel-tab active">Dashboard</div>
+            <div class="excel-tab">Data Pegawai</div>
+            <div class="excel-tab">Pivot Table</div>
+          </div>
+          <table class="excel-table">
+            <thead>
+              <tr>
+                <th>Divisi</th>
+                <th>Total Pegawai</th>
+                <th>Hadir</th>
+                <th>% Kehadiran</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Kepegawaian</td>
+                <td>24</td>
+                <td>22</td>
+                <td style="color:#1E7145;font-weight:600">91.7%</td>
+              </tr>
+              <tr>
+                <td>Keuangan</td>
+                <td>18</td>
+                <td>17</td>
+                <td style="color:#1E7145;font-weight:600">94.4%</td>
+              </tr>
+              <tr>
+                <td>IT & Data</td>
+                <td>12</td>
+                <td>12</td>
+                <td style="color:#1E7145;font-weight:600">100%</td>
+              </tr>
+              <tr>
+                <td>Administrasi</td>
+                <td>30</td>
+                <td>27</td>
+                <td style="color:#C4501A;font-weight:600">90.0%</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="excel-chart">
+            <div class="chart-bar-wrap">
+              <div class="chart-bar" style="height:68px"></div>
+              <div class="chart-label">Jan</div>
+            </div>
+            <div class="chart-bar-wrap">
+              <div class="chart-bar" style="height:55px"></div>
+              <div class="chart-label">Feb</div>
+            </div>
+            <div class="chart-bar-wrap">
+              <div class="chart-bar" style="height:72px"></div>
+              <div class="chart-label">Mar</div>
+            </div>
+            <div class="chart-bar-wrap">
+              <div class="chart-bar" style="height:60px"></div>
+              <div class="chart-label">Apr</div>
+            </div>
+            <div class="chart-bar-wrap">
+              <div class="chart-bar" style="height:75px"></div>
+              <div class="chart-label">Mei</div>
+            </div>
+            <div class="chart-bar-wrap">
+              <div class="chart-bar" style="height:65px"></div>
+              <div class="chart-label">Jun</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem; background:var(--paper); border:1px solid var(--border); padding:1.2rem;">
+        <div style="font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--rust); margin-bottom:0.8rem;">Kemampuan Excel</div>
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+          <span class="tech-tag" style="background:var(--sage)">Pivot Table</span>
+          <span class="tech-tag" style="background:var(--sage)">VLOOKUP / XLOOKUP</span>
+          <span class="tech-tag" style="background:var(--sage)">Data Cleaning</span>
+          <span class="tech-tag" style="background:var(--sage)">Conditional Format</span>
+          <span class="tech-tag" style="background:var(--sage)">Dashboard</span>
+          <span class="tech-tag" style="background:var(--sage)">Charts & Grafik</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="section-header">
+    <span class="section-num">04 —</span>
+    <h2 class="section-title">Sertifikat & Pelatihan</h2>
+  </div>
+
+  <div class="certs-grid">
+
+    <div class="cert-card">
+      <div class="cert-issuer">Universitas · Pelatihan</div>
+      <div class="cert-name">Pemrograman Berorientasi Objek dengan Unity & C#</div>
+      <div class="cert-desc">Pelatihan pengembangan game dan aplikasi menggunakan konsep OOP, inheritance, polymorphism, dan encapsulation dalam bahasa C# dengan engine Unity.</div>
+      <div class="cert-badge">✓ Terverifikasi</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-issuer">Pelatihan Profesional</div>
+      <div class="cert-name">Otomatisasi Tata Kelola Perkantoran</div>
+      <div class="cert-desc">Pelatihan manajemen administrasi digital, otomatisasi dokumen, dan pengelolaan arsip berbasis sistem informasi untuk efisiensi perkantoran modern.</div>
+      <div class="cert-badge">✓ Terverifikasi</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-issuer">Microsoft / Lembaga Pelatihan</div>
+      <div class="cert-name">Analisis Data & Pelaporan dengan Microsoft Excel</div>
+      <div class="cert-desc">Penguasaan fitur analitik Excel meliputi Pivot Table, formula lanjutan, visualisasi data, dan pembuatan dashboard laporan yang efektif untuk kebutuhan bisnis.</div>
+      <div class="cert-badge">✓ Terverifikasi</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER / CONTACT -->
+<footer id="contact">
+  <div class="footer-left">
+    <h2>Mari <em>Berkolaborasi</em> Bersama</h2>
+    <p>Terbuka untuk peluang kerja, magang lanjutan, atau kolaborasi project. Jangan ragu untuk menghubungi saya.</p>
+  </div>
+  <div>
+    <ul class="contact-list">
+      <li>
+        <div class="contact-icon">✉</div>
+        <div class="contact-info">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">nama@email.com</span>
+        </div>
+      </li>
+      <li>
+        <div class="contact-icon">📱</div>
+        <div class="contact-info">
+          <span class="contact-label">WhatsApp</span>
+          <span class="contact-value">+62 812 xxxx xxxx</span>
+        </div>
+      </li>
+      <li>
+        <div class="contact-icon">💼</div>
+        <div class="contact-info">
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value">linkedin.com/in/nama-anda</span>
+        </div>
+      </li>
+      <li>
+        <div class="contact-icon">📍</div>
+        <div class="contact-info">
+          <span class="contact-label">Lokasi</span>
+          <span class="contact-value">Jakarta, Indonesia</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Animate skill bars on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.skill-fill').forEach(bar => {
+          bar.style.width = bar.style.width;
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('#skills').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
